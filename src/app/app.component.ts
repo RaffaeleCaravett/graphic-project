@@ -10,6 +10,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 export class AppComponent {
   title = 'graphic';
   @ViewChild('threejsContainer', { static: true }) threejsContainer: any;
+  @ViewChild('div') div: any;
 
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
@@ -67,11 +68,16 @@ clown:any
 
     this.renderer.render(this.scene, this.camera);
   }
+  marginLeft=0;
   @HostListener('document:wheel', ['$event'])
   public onWheel(targetElement:any) {
+
+
       if(targetElement.deltaY>0){
-        if(this.camera.position.z<1.29){
+        if(this.camera.position.z<0.99){
+          this.marginLeft+=100
         this.camera.position.z+=0.1
+        this.div.nativeElement.style.marginLeft=`${this.marginLeft}px`
         }
         if(this.camera.position.y>0.14999999999999983){
         this.camera.position.y-=0.025
@@ -79,6 +85,8 @@ clown:any
         this.gltfModel.rotation.y-=0.5
       }else{
         this.camera.position.z-=0.1
+        this.marginLeft-=100
+        this.div.nativeElement.style.marginLeft=`${this.marginLeft}px`
         if(this.camera.position.z<0.89){
         this.camera.position.y+=0.025
         }
