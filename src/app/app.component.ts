@@ -15,6 +15,8 @@ export class AppComponent {
   private camera!: THREE.PerspectiveCamera;
   private renderer!: THREE.WebGLRenderer;
   private gltfModel: any
+  animationMixer:any
+  animationAction :any
 clown:any
   constructor() { }
 
@@ -25,7 +27,7 @@ clown:any
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.shadowMap.enabled = true;
     this.camera.position.x=0
-    this.camera.position.y=0.5
+    this.camera.position.y=0.45
     this.camera.position.z=-1
       const loader = new GLTFLoader();
     loader.load('assets//clown/scene.gltf', (gltf:any) => {
@@ -36,6 +38,11 @@ clown:any
       this.scene.add(this.gltfModel,ambientLight1,directionalLight1);
       this.gltfModel.rotation.y+=1
       this.clown=this.gltfModel
+      if (gltf.animations && gltf.animations.length > 0) {
+        this.animationMixer = new THREE.AnimationMixer(this.gltfModel);
+        this.animationAction = this.animationMixer.clipAction(gltf.animations[0]);
+        this.animationAction.play();
+      }
    this.animate()
     });
   }
@@ -49,8 +56,13 @@ clown:any
     requestAnimationFrame(() => this.animate());
 
     if (this.gltfModel) {
-      // this.gltfModel.rotation.x += 0.01;
-      // this.gltfModel.rotation.y += 0.01;
+      this.gltfModel.traverse((object:any) => {
+        if (object instanceof THREE.Mesh) {
+          object.updateMatrix();
+        }
+      });
+      this.animationMixer.update(0.0167);
+
     }
 
     this.renderer.render(this.scene, this.camera);
@@ -58,12 +70,18 @@ clown:any
   @HostListener('document:wheel', ['$event'])
   public onWheel(targetElement:any) {
       if(targetElement.deltaY>0){
+        if(this.camera.position.z<1.29){
         this.camera.position.z+=0.1
+        }
+        if(this.camera.position.y>0.14999999999999983){
         this.camera.position.y-=0.025
+      }
         this.gltfModel.rotation.y-=0.5
       }else{
         this.camera.position.z-=0.1
+        if(this.camera.position.z<0.89){
         this.camera.position.y+=0.025
+        }
         this.gltfModel.rotation.y+=0.5
       }
   }
