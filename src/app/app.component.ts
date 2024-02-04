@@ -69,15 +69,22 @@ clown:any
     this.renderer.render(this.scene, this.camera);
   }
   marginLeft=0;
+  scale=3
+  rotateY=0
   @HostListener('document:wheel', ['$event'])
   public onWheel(targetElement:any) {
-
+console.log(  this.div.nativeElement.style)
 
       if(targetElement.deltaY>0){
         if(this.camera.position.z<0.99){
           this.marginLeft+=100
+this.scale-=0.1
+this.rotateY+=0.1
         this.camera.position.z+=0.1
         this.div.nativeElement.style.marginLeft=`${this.marginLeft}px`
+        this.div.nativeElement.style.scale=this.scale
+        this.div.nativeElement.style.transform=`rotateY(${this.rotateY})`
+
         }
         if(this.camera.position.y>0.14999999999999983){
         this.camera.position.y-=0.025
