@@ -8,6 +8,19 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <canvas #threejsContainer></canvas>
-<div class="bg-dark" #div>
+<div class="my-5" #div>
+  <form [formGroup]="trialForm" class="p-5 border rounded text-center  m-auto my-5">
+  <label for="" class="p-2">Inserisci il nome: </label>
+  <input type="text" class="form-control bg-transparent">
+  <label for="" class="p-2">Inserisci il cognome:</label>
+  <input type="text" class="form-control bg-transparent">
+  <label for="" class="p-2">Inserisci la tua email:</label>
+  <input type="text" class="form-control bg-transparent">
+  <label for="" class="p-2">Inserisci la password:</label>
+  <input type="text" class="form-control bg-transparent">
+  <label for="" class="p-2">Ripeti la password:</label>
+<input type="text" class="form-control bg-transparent">
+<button class="btn m-2 btn-success">Registrati</button>
+</form>
 </div>
 <router-outlet></router-outlet>
