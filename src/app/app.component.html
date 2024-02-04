@@ -8,6 +8,10 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <canvas #threejsContainer></canvas>
+<div class="my-5" #div2>
+  <h1>
+    Enjoy yourself
+  </h1>  </div>
 <div class="my-5" #div>
   <form [formGroup]="trialForm" class="p-5 border rounded text-center  m-auto my-5">
   <label for="" class="p-2">Inserisci il nome: </label>
@@ -22,5 +26,9 @@
 <input type="text" class="form-control bg-transparent">
 <button class="btn m-2 btn-success">Registrati</button>
 </form>
+</div>
+<div class="my-5 text-center" #div1>
+ <img src="../assets/logo/circus.png" alt="">
+ <h1>The Best Circus in the world.</h1>
 </div>
 <router-outlet></router-outlet>

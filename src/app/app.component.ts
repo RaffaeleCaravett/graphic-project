@@ -12,6 +12,8 @@ export class AppComponent implements OnInit,AfterViewInit{
   title = 'graphic';
   @ViewChild('threejsContainer', { static: true }) threejsContainer: any;
   @ViewChild('div') div: any;
+  @ViewChild('div1') div1: any;
+  @ViewChild('div2') div2: any;
 
   private scene!: THREE.Scene;
   private camera!: THREE.PerspectiveCamera;
@@ -23,8 +25,8 @@ clown:any
 trialForm!:FormGroup
 rotateX:number=0
 scale=0.0
-left='40%'
-i:number=40
+left='20%'
+i:number=20
   constructor() { }
   ngAfterViewInit(): void {
   //  this.div.nativeElement.classList.add('position-absolute','top-50','start-50','translate-middle')
@@ -32,10 +34,16 @@ i:number=40
     this.div.nativeElement.style.position='absolute'
     this.div.nativeElement.style.left=this.left
     this.div.nativeElement.style.scale=this.scale
-    // this.div.nativeElement.style.marginLeft=`45%`
-    // this.div.nativeElement.style.scale=`4`
-
-
+    this.div1.nativeElement.style.zIndex=`4`
+    this.div1.nativeElement.style.position='absolute'
+    this.div1.nativeElement.style.right=this.left
+    this.div1.nativeElement.style.scale=this.scale
+    this.div2.nativeElement.style.scale=this.scale
+    this.div2.nativeElement.style.position='fixed'
+    this.div2.nativeElement.style.top='0'
+    this.div.nativeElement.style.top='10%'
+    this.div1.nativeElement.style.top='10%'
+    this.div2.nativeElement.style.left='45%'
   }
 
   ngOnInit(): void {
@@ -94,20 +102,25 @@ i:number=40
         if(this.rotateX<=320){
            this.rotateX+=40
         }
-
-        if(this.i<=60){
-this.i+=2
+        if(this.i<=64){
+this.i+=3
 this.left=`${this.i}%`
 this.div.nativeElement.style.left=this.left
+this.div1.nativeElement.style.right=this.left
 
         }
 
         if(this.scale<1.1){
           this.scale+=0.2
         this.div.nativeElement.style.scale=this.scale
-        }
+        this.div1.nativeElement.style.scale=this.scale
 
+      }
+
+this.div2.nativeElement.style.scale=this.scale
         this.div.nativeElement.style.transform = `rotateY(${this.rotateX}deg)`;
+        this.div1.nativeElement.style.transform = `rotateY(${-this.rotateX}deg)`;
+
         if(this.camera.position.z<0.69){
         this.camera.position.z+=0.1
         }
